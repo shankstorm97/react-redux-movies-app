@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <div className="homePage">
       <HeroBanner />
-      <div style={{ height: "1080px" }}></div>
       <Trending />
+      <div style={{ height: "1080px" }}></div>
     </div>
   );
 };
