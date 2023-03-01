@@ -9,7 +9,7 @@ const SwitchTabs = ({ data, onTabChange }) => {
     setLeft(index * 100);
     setTimeout(() => {
       setSelectedTab(index);
-    }, 400);
+    }, 2000);
     onTabChange(tab, index);
   };
 
@@ -19,13 +19,12 @@ const SwitchTabs = ({ data, onTabChange }) => {
         {data.map((tab, index) => (
           <span
             key={index}
-            className={`tabItem ${selectedTab === index ? "active" : ""} `}
+            className={`tabItem ${selectedTab === index ? "active" : ""}`}
             onClick={() => activeTab(tab, index)}
           >
             {tab}
           </span>
         ))}
-
         <span className="movingBg" style={{ left }} />
       </div>
     </div>
