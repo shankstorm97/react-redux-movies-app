@@ -18,7 +18,6 @@ import "./style.scss";
 const Carousel = ({ data, loading, endpoint }) => {
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
-  console.log(data);
   const navigate = useNavigate();
   const navigation = (dir) => {
     const container = carouselContainer.current;
@@ -68,8 +67,10 @@ const Carousel = ({ data, loading, endpoint }) => {
                 <div
                   key={item.id}
                   className="carouselItem"
-                  onClick={() =>
-                    navigate(`/${item.media_type || endpoint}/${item.id}`)
+                  onClick={
+                    () =>
+                      navigate(`/${item?.media_type || endpoint}/${item.id}`)
+                    // navigate(`/${endpoint}/${item.id}`)
                   }
                 >
                   <div className="posterBlock">

@@ -6,9 +6,9 @@ import useFetch from "../../../hooks/useFetch";
 
 const Popular = () => {
   const [endPoint, setEndPoint] = useState("movie");
+  // console.log(endPoint);
 
   const { data, loading } = useFetch(`/${endPoint}/popular`);
-  // console.log(data);
 
   const onTabChange = (tab) => {
     setEndPoint(tab === "Movies" ? "movie" : "tv");
