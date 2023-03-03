@@ -5,13 +5,13 @@ import SwitchTabs from "../../../components/switchTabs/SwitchTabs";
 import useFetch from "../../../hooks/useFetch";
 
 const Popular = () => {
-  const [endPoint, setEndPoint] = useState("movie");
+  const [endpoint, setEndpoint] = useState("movie");
   // console.log(endPoint);
 
-  const { data, loading } = useFetch(`/${endPoint}/popular`);
+  const { data, loading } = useFetch(`/${endpoint}/popular`);
 
   const onTabChange = (tab) => {
-    setEndPoint(tab === "Movies" ? "movie" : "tv");
+    setEndpoint(tab === "Movies" ? "movie" : "tv");
   };
 
   return (
@@ -20,8 +20,7 @@ const Popular = () => {
         <span className="carouselTitle">What's Popular</span>
         <SwitchTabs data={["Movies", "Tv Shows"]} onTabChange={onTabChange} />
       </ContentWrapper>
-
-      <Carousel data={data?.results} loading={loading} endPoint={endPoint} />
+      <Carousel data={data?.results} loading={loading} endpoint={endpoint} />
     </div>
   );
 };
