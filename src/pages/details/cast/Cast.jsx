@@ -9,6 +9,7 @@ import avatar from "../../../assets/avatar.png";
 
 const Cast = ({ data, loading }) => {
   const { url } = useSelector((state) => state.home);
+  const effect = "opacity";
 
   const skeleton = () => {
     return (
@@ -32,7 +33,12 @@ const Cast = ({ data, loading }) => {
 
               return (
                 <div className="listItem" key={item.id}>
-                  <div className="profileImg">{<Img src={imgUrl} />}</div>
+                  <div className="profileImg">
+                    {<Img src={imgUrl} effect={effect} />}
+                  </div>
+                  {/* <div className="profileImg">
+                    {<img src={imgUrl} alt="moviestars" />}
+                  </div> */}
                   <div className="name">{item.name}</div>
                   <div className="character">{item.character}</div>
                 </div>
