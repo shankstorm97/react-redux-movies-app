@@ -9,6 +9,7 @@ import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 // import MovieCard from "../../components/movieCard/MovieCard";
 // import Spinner from "../../components/spinner/Spinner";
 import noResults from "../../assets/no-results.png";
+import Spinner from "../../components/spinner/Spinner";
 
 const SearchResult = () => {
   const [data, setData] = useState(null);
@@ -16,7 +17,47 @@ const SearchResult = () => {
   const [loading, setLoading] = useState(false);
   const { query } = useParams();
 
-  return <div>SearchResult</div>;
+  const fetchInititalData = () => {
+    setLoading(true);
+    fetchDataFromApi(`/search/multi?query=${query}&page=${pageNum}`).then(
+      (res) => {
+        setData(res);
+        setPageNum((prev) => prev + 1);
+        setLoading(false);
+      }
+    );
+  };
+  const fetchNextPageData = () => {
+    setLoading(true);
+    fetchDataFromApi(`/search/multi?q=${query}&page=${pageNum}`).then((res) => {
+      if (data?.results) {
+        setData({ ...data, results: [...data?.results, ...res?.results] });
+      } else {
+        setData(res);
+      }
+      setPageNum((prev) => prev + 1);
+    });
+  };
+
+  useEffect(() => {
+    fetchInititalData();
+    fetchNextPageData();
+  }, [query]);
+
+  return (
+    <div className="searchResultsPage">
+      {loading && <Spinner initial={true} />}
+      {!loading && (
+        <ContentWrapper>{data?.results.length > 0 ? 
+          <>
+          </>
+
+          : 
+        <span className="resultNotFound">Sorry, Results not Found!...</span>
+        }</ContentWrapper>
+      )}
+    </div>
+  );
 };
 
 export default SearchResult;

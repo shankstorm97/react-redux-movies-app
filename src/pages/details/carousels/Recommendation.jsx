@@ -10,7 +10,7 @@ const Recommendation = ({ mediaType, id }) => {
 
   return (
     <>
-      {data?.results.length === 0 ? (
+      {data?.results?.length === 0 ? (
         ""
       ) : (
         <Carousel
