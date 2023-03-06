@@ -16,7 +16,6 @@ const SearchResult = () => {
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(false);
   const { query } = useParams();
-
   const fetchInititalData = () => {
     setLoading(true);
     fetchDataFromApi(`/search/multi?query=${query}&page=${pageNum}`).then(
@@ -38,23 +37,29 @@ const SearchResult = () => {
       setPageNum((prev) => prev + 1);
     });
   };
+  console.log(data);
 
   useEffect(() => {
     fetchInititalData();
-    fetchNextPageData();
   }, [query]);
 
   return (
     <div className="searchResultsPage">
       {loading && <Spinner initial={true} />}
       {!loading && (
-        <ContentWrapper>{data?.results.length > 0 ? 
-          <>
-          </>
-
-          : 
-        <span className="resultNotFound">Sorry, Results not Found!...</span>
-        }</ContentWrapper>
+        <ContentWrapper>
+          {data && data?.results?.length > 0 ? (
+            <>
+              <div className="pageTitle">
+                {`search ${
+                  data?.total_results > 1 ? "results" : "result"
+                } of '${query}' `}
+              </div>
+            </>
+          ) : (
+            <span className="resultNotFound">Sorry, Results not Found!...</span>
+          )}
+        </ContentWrapper>
       )}
     </div>
   );
