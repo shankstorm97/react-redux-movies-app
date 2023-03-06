@@ -10,6 +10,7 @@ import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 // import Spinner from "../../components/spinner/Spinner";
 import noResults from "../../assets/no-results.png";
 import Spinner from "../../components/spinner/Spinner";
+import MovieCard from "../../components/movideCard/MovieCard";
 
 const SearchResult = () => {
   const [data, setData] = useState(null);
@@ -27,15 +28,16 @@ const SearchResult = () => {
     );
   };
   const fetchNextPageData = () => {
-    setLoading(true);
-    fetchDataFromApi(`/search/multi?q=${query}&page=${pageNum}`).then((res) => {
-      if (data?.results) {
-        setData({ ...data, results: [...data?.results, ...res?.results] });
-      } else {
-        setData(res);
+    fetchDataFromApi(`/search/multi?query=${query}&page=${pageNum}`).then(
+      (res) => {
+        if (data?.results) {
+          setData({ ...data, results: [...data?.results, ...res.results] });
+        } else {
+          setData(res);
+        }
+        setPageNum((prev) => prev + 1);
       }
-      setPageNum((prev) => prev + 1);
-    });
+    );
   };
   console.log(data);
 
@@ -48,13 +50,27 @@ const SearchResult = () => {
       {loading && <Spinner initial={true} />}
       {!loading && (
         <ContentWrapper>
-          {data && data?.results?.length > 0 ? (
+          {data?.results?.length > 0 ? (
             <>
               <div className="pageTitle">
                 {`search ${
                   data?.total_results > 1 ? "results" : "result"
                 } of '${query}' `}
               </div>
+              <InfiniteScroll
+                className="content"
+                dataLength={data?.results?.length || []}
+                next={fetchNextPageData}
+                hasMore={pageNum <= data?.total_pages}
+                loader={<Spinner />}
+              >
+                {data.results.map((item, index) => {
+                  if (item.media_type === "person") return;
+                  return (
+                    <MovieCard key={index} data={item} fromSearch={true} />
+                  );
+                })}
+              </InfiniteScroll>
             </>
           ) : (
             <span className="resultNotFound">Sorry, Results not Found!...</span>
