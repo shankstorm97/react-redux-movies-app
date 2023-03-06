@@ -6,11 +6,11 @@ import "./style.scss";
 
 import { fetchDataFromApi } from "../../utils/api";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
-// import MovieCard from "../../components/movieCard/MovieCard";
+import MovieCard from "../../components/movieCard/MovieCard";
 // import Spinner from "../../components/spinner/Spinner";
 import noResults from "../../assets/no-results.png";
 import Spinner from "../../components/spinner/Spinner";
-import MovieCard from "../../components/movideCard/MovieCard";
+// import MovieCard from "../../components/movideCard/MovieCard";
 
 const SearchResult = () => {
   const [data, setData] = useState(null);
