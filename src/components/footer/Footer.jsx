@@ -27,7 +27,7 @@ const Footer = () => {
           searching for latest stuff.
           <br />
           <span>
-            Moreover, this service fetches data from tmdb which updates every
+            Moreover, this service fetches data from tmdb which is updated every
             day by people around the world.
           </span>
         </div>
